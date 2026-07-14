@@ -1,0 +1,24 @@
+{% comment %} {% extends "admin" %} {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Receipe</title>
+  <link rel="stylesheet" href="{% static 'succ.css' %}">
+</head>
+<body>
+  <section>
+    <div class="success-container">
+        {% block content %}
+    <h2>{{ title }}</h2>
+    <p><strong>Start Date:</strong> {{ report.start_of_week}}</p><p>{{report.start_of_month }}</p>
+    <p><strong>End Date:</strong> {{ report.end_of_week}}</p><p>{{report.end_of_month }}</p>
+    <p><strong>Total Orders:</strong> {{ report.total_orders }}</p>
+    <p><strong>Total Sales:</strong> ₹{{ report.total_sales }}</p>
+    <br>
+    <a href="{% url 'admin:index' %}">Back to Admin</a>
+{% endblock %}
+    </div>
+  </section>
+</body>
+</html>
