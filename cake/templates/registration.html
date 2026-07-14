@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registration</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'web.css' %}">
+</head>
+
+<body>
+    <header class="registration-header">
+        <div class="container">
+            <div class="logo">
+                <table>
+                    <tr>
+                        <td><img src={% static 'images/logo.png' %}></td>
+                        <td><p>Cake 'N' Bake</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <main>
+            <section class="user-container registration-section--display">
+                <div class="registration">
+                    <div class="grid-two--column">
+                        <div class="form-text">
+                            <h2>Welcome Back</h2>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <a href="/cake/login"><button class="login-btn">Login Here</button></a>
+                        </div>
+                        <div class="registration-form">
+                            <h2>Create Account</h2>
+                            <form name="myform" method="POST" onsubmit="return myfunction();">
+                                {% csrf_token %}
+                                <div class="input-field">
+                                    <label for="username">
+                                        <input type="text" name="username" id="username" placeholder="Name" required>
+                                    </label>
+                                </div>
+                                <div class="input-field">
+                                    <label for="email">
+                                        <input type="email" name="email" id="email" placeholder="Email_id" required>
+                                    </label>
+                                </div>
+                                <div class="input-field">
+                                    <div class="sub">
+                                        <label for="contact">
+                                            <input type="contact" name="contact" id="contact" placeholder="Phone No." required>
+                                        </label>
+                                        <label for="dob">
+                                            <input type="date" name="dob" id="dob" placeholder="Date of Birth" required>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <div class="sub">
+                                        <label for="password">
+                                            <input type="password" name="password" id="password" placeholder="Password"
+                                                required>
+                                        </label>
+                                        <label for="cpassword">
+                                            <input type="password" name="cpassword" id="cpassword"
+                                                placeholder="Confirm password" required>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="input-field"> -->
+                                    <!-- <label style="font-size: 1.5rem;">Gender:-</label> -->
+                                <div class="su">
+                                    <div class="btn-group">
+                                        <label>
+                                            <input type="radio" name="gender" id="gender" value="Male">Male</input>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="gender" id="gender" value="Female">
+                                            Female</input>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- </div> -->
+                                <div class="input-field">
+                                    <label for="address">
+                                        <input type="address" name="address" id="address" placeholder="Address" maxlength="100" required>
+                                    </label>
+                                </div>
+                                <div class="input-field">
+                                    <input type="submit" value="Register" >
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </header>
+    <script type="text/javascript" src="{% static 'js/java/script.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipts | Cake 'N' Bake</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'receipe.css' %}">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Cake 'N' Bake</h1>
+            <a href="/cake/home/" class="home-btn"><i class="fa-solid fa-house"></i> Home</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>My Orders</h2>
+
+        {% for order in order %}
+        <div class="order-card">
+            <div class="order-header">
+                <h3>{{ order.product }}</h3>
+                <span class="status">{{ order.status }}</span>
+            </div>
+
+            <div class="order-body">
+                <p><strong>Name:</strong> {{ order.delivery_name }}</p>
+                <p><strong>Contact:</strong> {{ order.contact }}</p>
+                <p><strong>Address:</strong> {{ order.address }}</p>
+                <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+                <p><strong>Weight:</strong> {{ order.weight }}</p>
+                <p><strong>Shape:</strong> {{ order.shape }}</p>
+                <p><strong>Flavor:</strong> {{ order.flavor }}</p>
+                <p><strong>Price:</strong> ₹{{ order.price }}</p>
+                <p><strong>Total:</strong> ₹{{ order.total }}</p>
+                <p><strong>Date-Time:</strong> {{ order.date }}</p>
+            </div>
+
+            <div class="order-footer">
+                <span class="timer" id="timer{{ order.id }}">30:00</span>
+                <form method="POST" action="/cake/deletes/">
+                    {% csrf_token %}
+                    <button type="submit" name="delete" value="{{ order.id }}" id="del{{ order.id }}" class="cancel-btn">
+                        Cancel Order
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="note">
+            <i class="fa-solid fa-circle-info"></i>
+            Orders are delivered within 2 hours. You cannot cancel the order after 30 minutes.
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Cake 'N' Bake | created by BCA Students</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for order in order %}
+                startTimer({{ order.id }}, "{{ order.date|date:'U' }}");
+            {% endfor %}
+
+            function startTimer(productId, createdAt) {
+                let timerElement = document.getElementById(`timer${productId}`);
+                let cancelButton = document.getElementById(`del${productId}`);
+                let endTime = parseInt(createdAt) * 1000 - 300 * 60 * 1000;
+                let interval = setInterval(() => {
+                    let now = new Date().getTime();
+                    let distance = endTime - now;
+                    if (distance <= 0) {
+                        clearInterval(interval);
+                        timerElement.textContent = "Expired";
+                        cancelButton.disabled = true;
+                        cancelButton.style.opacity = 0.5;
+                    } else {
+                        let minutes = Math.floor((distance / 1000 / 60) % 60);
+                        let seconds = Math.floor((distance / 1000) % 60);
+                        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

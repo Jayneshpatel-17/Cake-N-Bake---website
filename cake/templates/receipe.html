@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+     <link rel="stylesheet" href="{% static 'receipe.css' %}">
+ {% comment %}   <style>
+        body {
+            font-family: Arial, sans-serif;
+            {% comment %} background-image: url(images/background.png); 
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color:rgb(79, 97, 55);
+        }
+        .order-summary {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .order-summary p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .order-summary strong {
+            color:rgb(100, 112, 109);
+        }
+        table{
+            letter-spacing : .5px;
+            font-size:17px;
+            padding: .5px .5px;
+            
+            border-radius:5px;
+        }
+        th{
+            background-color:rgb(195, 204, 230);
+        }
+        td{
+            background-color: rgb(240, 243, 252);
+        }
+        .cart-summary {
+            text-align: right;
+            margin-top: 20px;
+        }
+        
+        .cart-summary h3 {
+            font-size: 1.5em;
+        }
+        .order-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 5px;
+        }       
+        .timer {
+            font-size: 15px;
+            {% comment %} font-weight: bold; 
+            color: red;
+        }
+    </style>{% endcomment %}
+</head>
+<body background={% static 'images/background.png' %} alt="">
+    <div class="container">
+        {% comment %} <h2>Delivery details</h2>
+        
+        <div class="order-summary">
+            <p><strong>Name:</strong> {{ order.delivery_name }}</p>
+            <p><strong>Contact:</strong> {{ order.contact }}</p>
+            <p><strong>Address:</strong> {{ order.address }}</p>
+        </div> {% endcomment %}
+        
+        <h2>Order Receipe</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Weight</th>
+                    <th>Shape</th>
+                    <th>Flavor</th>
+                    <th>Price</th>
+                    <th>Date-Time</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Timer</th>
+                    <th>Cancel Order</th>
+                </tr>
+            </thead>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            {% for order in order %} 
+            {% comment %} |slice:":1" {% endcomment %}
+            <tbody>
+                <tr>
+                    
+                    <td>{{ order.delivery_name }}</td>
+                    <td>{{ order.contact }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>{{order.product}}</td>
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.weight}}</td>
+                    <td>{{order.shape}}</td>
+                    <td>{{order.flavor}}</td>
+                    <td>{{order.price}}</td>
+                    <td>{{order.date}}</td>
+                    <td>{{order.status}}</td>
+                    <td>{{order.total}}</td>
+                    <td><span id="timer{{ order.id }}" class="timer">30:00</span></td>
+                
+            <form method="POST" action="/cake/deletes/">
+                {% csrf_token %}
+                <td><p id="del{{order.id}}"><button type="submit" id="delete" name="delete" value="{{order.id}}">❌</button></p></td>
+            </form>
+            </tr>
+        </tbody>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+            {% endfor %}
+        </table>
+        <b><p>Product Deliver Within 2 Hours and you can not cancel the order after 30 minutes.</p></b>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for order in order %}
+                startTimer({{ order.id }}, "{{ order.date|date:'U' }}");
+            {% endfor %}
+
+            //let deleteBtn = document.getElementById("del");
+
+            function startTimer(productId, createdAt) {
+                let timerElement = document.getElementById(`timer${productId}`);
+                let storageKey = `timerEnd${productId}`;
+                let storedTime = localStorage.getItem(storageKey);
+                let cancelButton = document.getElementById(`del${productId}`);
+
+                if (!storedTime) {
+                    let endTime = parseInt(createdAt) * 1000 - 300 * 60 * 1000; // 30 minutes from creation
+                    localStorage.setItem(storageKey, endTime);
+                    storedTime = endTime;
+                }
+
+                function updateTimer() {
+                    let now = new Date().getTime();
+                    let timeLeft = storedTime - now;
+
+                    if (timeLeft > 0) {
+                        let minutes = Math.floor(timeLeft / (1000 * 60));
+                        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                        setTimeout(updateTimer, 1000);
+                    } else {
+                        
+                        cancelButton.textContent = "";
+                        timerElement.textContent = "Time Expired";
+                        //deleteBtn.disabled = true;
+                        localStorage.removeItem(storageKey);
+                    }
+                }
+
+                updateTimer();
+            }
+        });
+    </script>
+</body>
+</html>

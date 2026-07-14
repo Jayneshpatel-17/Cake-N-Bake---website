@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake 'N' Bake</title>
+
+    <!-- swiper link  -->
+    {% comment %} <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'js/5.css' %}"> 
+    {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"> {% endcomment %}
+    <!-- cdn icon link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- custom css file  -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+<style>
+    /* Style the navigation container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style the dropdown link */
+.dropdown button {
+    color: #1B1722;
+    padding: 1.4rem 7%;
+    text-decoration: none;
+    font-size: 2rem;
+    margin-right: 3rem;
+    font-weight: bold;
+    display: block;
+}
+
+/* Change color on hover */
+.dropdown button:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Style for links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown content when hovering over the parent */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.add-to{
+    cursor: pointer;
+    font-size: 16px;
+}
+
+</style>
+</head>
+
+<body>
+    <!-- header section start here  -->
+    <header class="header">
+        <div class="logoContent">
+            <div class="logo"><img src={% static 'images/logo.png' %} alt=""></div>
+            <h1 class="logoName">Cake 'N' Bake </h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <div class="dropdown">
+                <button>Category</button>
+                <div class="dropdown-content">
+                    {% for category in category %}
+                    <a href="/cake/home/?category={{category.id}}">{{category.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="#product">product</a>
+            <a href="#contact">contact</a>
+            <a href="/cake/about">about us</a>
+        </nav>
+
+        
+        
+        <div class="icon">
+            <i class="fas fa-search" id="search"></i>
+            <i class="fas fa-bars" id="menu-bar"></i>
+        </div>
+        <h1>{{username}}</h1>
+        <div class="icon">
+            <a href="/cake/logout"><i class="fa-solid fa-right-from-bracket"></i></i></a>
+        </div>
+        <a href="/cake/show_cart/"><button class="add-to"><i class="fa-solid fa-cart-shopping"></i>Cart</button></a>
+        <a href="/cake/receipe/"><button class="add-to"><i class="fa-solid fa-receipt"></i></button></a>
+        <a href="/cake/inquirys/"><button class="add-to"><i class="fa-solid fa-question"></i></i></button></a>
+        <form class="d-flex" action="/cake/search">
+        <div class="search">
+            <input type="search" placeholder="search..." name="query">
+        </div>
+    </form>
+    </header>
+    <!-- header section end here  -->
+
+    <!-- home section start here  -->
+    <section class="home" id="home">
+        <div class="homeContent">
+            <h2>Delicious Cake for Everyone </h2>
+            <p>We are selling sweetness of our heart with a cake.</p>
+        </div>
+    </section>
+
+    <!-- home section end here  -->
+
+    <!-- product section start here  -->
+    <section class="product" id="product">
+        
+        <div class="heading">
+            <h2>Our Exclusive Products:-</h2>
+        </div>
+        {% comment %} images 408 x 612 {% endcomment %}
+        {% for product in product %}    
+        {% if forloop.counter0|divisibleby:10 %}
+        <div class="swiper product-row">
+            <div class="swiper-pagination"></div>
+            <div class="swiper-wrapper">
+                {% endif %}
+                <div class="swiper-slide box">
+                    <div class="img">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                    <div class="product-content">
+                        <h3>{{product.name}}</h3>
+                        <p style="font-size: 25px;">₹{{product.price}}</p>
+                        <div class="orderNow">
+                            <a href="{% url 'productdetail' product.id %}" class="btn"><button><div class="item">Order Now</div></button></a>
+                        </div>
+                    </div>     
+                </div>
+                {% if forloop.counter|divisibleby:10 %}
+            </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:10 %}
+            <div class="swiper-pagination"></div>
+            </div>
+            {% endif %}
+            {% endfor %}
+    </section>
+
+    <!-- product section end here  -->
+
+    <!-- blogs section start here  -->
+    <section class="blogs" id="blogs">
+
+        <div class=" swiper blogs-row">
+            <div class="swiper-wrapper">
+                {% for blog in blog %}
+                <div class=" swiper-slide box">
+                    <div class="img">
+                        <img src={{blog.image.url}} alt="">
+                    </div>
+                    <div class="content">
+                        <h3>{{blog.title}}</h3>
+                        <p>{{blog.blog}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% comment %} <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div> {% endcomment %}
+            <div class="swiper-pagination"></div>
+
+
+        </div>
+    </section>
+
+    <!-- blogs section ends here  -->
+
+    <!-- newsletter section start here  -->
+
+    <section class="newsletter">
+        <form action="/cake/feedback/" method="POST">
+            {% csrf_token %}
+            <h3>Give your feedback</h3>
+            <input type="text" name="comment" placeholder="enter your comment" id="comment" class="box">
+            <button class="box2">submit</button>
+        </form>
+    </section>
+    <!-- newsletter section ends here  -->
+
+    <!-- review section start here  -->
+    <section class="review" id="review">
+        <div class="heading">
+            <h2>Customer review</h2>
+        </div>
+        <div class=" swiper review-row">
+            <div class="swiper-wrapper">
+                {% for review in review %}
+                <div class="swiper-slide box">
+                    <div class="client-review">
+                        <p>{{review.feedback}}</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="img">
+                            <img src={% static 'images/client1.jpg' %} alt="">
+                        </div>
+                        <div class="clientDetailed">
+                            <h3>{{review.username}}</h3>
+                            {% comment %} <p></p> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>    
+        </div>
+    </section>
+    <!-- review section ends here  -->
+
+    <!-- footer section start here  -->
+
+    <footer class="footer" id="contact">
+        <div class="box-container">
+            <div class="mainBox">
+                <div class="content">
+                    <a href="#"><img src={% static 'images/logo.png' %} alt=""></a>
+                    <h1 class="logoName"> Cake 'N' Bake </h1>
+                </div>
+
+                <p>We are selling sweetness of our heart with a cake.</p>
+
+            </div>
+            <div class="box">
+                <h3>Quick link</h3>
+                <a href="#home"> <i class="fas fa-arrow-right"></i>Home</a>
+                <a href="#product"> <i class="fas fa-arrow-right"></i>product</a>
+                <a href="#blogs"> <i class="fas fa-arrow-right"></i>blogs</a>
+                <a href="#review"> <i class="fas fa-arrow-right"></i>review</a>
+                <a href="#contact"> <i class="fas fa-arrow-right"></i>contact</a>
+
+            </div>
+            <div class="box">
+                <h3>Extra link</h3>
+                <a href="/cake/about"> <i class="fas fa-arrow-right"></i>Account info</a>
+                <a href="/cake/about"> <i class="fas fa-arrow-right"></i>privacy policy</a>
+                <a href="/cake/about"> <i class="fas fa-arrow-right"></i>our  services</a>
+                <a href="/cake/inquirys"> <i class="fas fa-arrow-right"></i>Inquiry</a>
+            </div>
+            <div class="box">
+                <h3>Contact Info</h3>
+                <a href="#"> <i class="fas fa-phone"></i>+91 12222 34444</a>
+                <a href="#"> <i class="fas fa-envelope"></i>cakenbake@gmail.com</a>
+
+            </div>
+
+        </div>
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-linkedin"></a>
+            <a href="#" class="fab fa-pinterest"></a>
+        </div>
+        <div class="credit">
+            created by <span>BCA Students </span> |all rights reserved ! 
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+    <!-- swiper js link  -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- custom js file  -->
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+
+
+</body>
+
+</html>

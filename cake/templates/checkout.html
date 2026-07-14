@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'checkout.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+        <div class="registration-form">
+            <h2>Delivery Details</h2>
+            <form action="/cake/show_cart/checkout/orderdetails/" name="myform" method="POST" onsubmit="return myfunction();">
+                {% csrf_token %}
+                <div class="input-field">
+                    <label for="name">
+                        <input type="text" name="name" id="name" placeholder="Name" required>
+                    </label>
+                </div>
+                <div class="input-field">
+                    <label for="contact">
+                        <input type="contact" name="contact" id="contact" placeholder="Phone No." required>
+                    </label>
+                </div>
+                <div class="input-field">
+                    <label for="address">
+                        <input type="address" name="address" id="address" placeholder="Address" maxlength="100" required>
+                    </label>
+                </div>
+                <div class="input-field">
+                    {% comment %} <div class="sub"> {% endcomment %}
+                        <input type="submit" value="Deliver">
+                    {% comment %} </div> {% endcomment %}
+                </div>
+            </form>
+            {% comment %} <a href="/cake/show_cart/"><button value="Go Back">Go Back</button></a> {% endcomment %}
+        </div>
+
+    {% comment %} <p id="message"></p> {% endcomment %}
+
+    {% comment %} <script>
+        $(document).ready(function(){
+            $("#orderForm").submit(function(event){
+                event.preventDefault();
+                $.ajax({
+                    url: "", // Submit to the current URL
+                    type: "POST",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response){
+                        if(response.success){
+                            $("#message").text("Order submitted successfully!").css("color", "green");
+                            $("#orderForm")[0].reset();
+                        } else {
+                            $("#message").text("Error: " + JSON.stringify(response.errors)).css("color", "red");
+                        }
+                    }
+                });
+            });
+        });
+    </script> {% endcomment %}
+    <script type="text/javascript" src="{% static 'js/scr.js' %}"></script>
+</body>
+</html>

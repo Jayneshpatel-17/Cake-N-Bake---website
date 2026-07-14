@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Cake 'N' Bake</title>
+    <link rel="stylesheet" href="{% static 'cart1.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .quantity-display {
+            padding: 10px;
+            font-size: 16px;
+            width: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🛒 My Cart</h1>
+    </header>
+
+    <section class="cart">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th></th>
+                    <th></th>
+                    <th>Quantity</th>
+                    <th></th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cart in cart %}
+                <tr  data-id="{{ cart.id }}">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ cart.product.name }}</td>
+                    <td>₹{{cart.price}}.00</td>
+                    <td><td><button class="minus">-</button></td>
+                    <td class="quantity">{{cart.quantity}}</td>
+                    <td><button class="plus">+</button></td></td>
+                    <td class="item-total">₹{{cart.total_price}}.00</td>
+                    <td><button class="remove">❌</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="cart-summary">
+            <h3>Total: ₹<span id="cart-total">{{ total }}.00</span></h3>
+            <a href='/cake/home/'><button class="checkout-btn">Go Back</button></a>
+            <a href='/cake/show_cart/checkout'><button class="checkout-btn">Proceed to Checkout</button></a>
+        </div>
+    </section>
+    <script>
+        $(document).ready(function() {
+            $(".plus, .minus").click(function() {
+                var row = $(this).closest("tr");
+                var cart_id = row.data("id");
+                var action = $(this).hasClass("plus") ? "plus" : "minus";
+
+                $.post("{% url 'update_cart' %}", {
+                    cart_id: cart_id,
+                    action: action,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }, function(response) {
+                    row.find(".quantity").text(response.quantity);
+                    row.find(".item-total").text("₹" + (response.quantity * parseFloat(row.find("td:nth-child(3)").text().replace("₹", ""))).toFixed(2));
+                    $("#cart-total").text(response.total.toFixed(2));
+                });
+            });
+
+            $(".remove").click(function() {
+                var row = $(this).closest("tr");
+                var cart_id = row.data("id");
+
+                $.post("{% url 'remove_cart_item' %}", {
+                    cart_id: cart_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }, function(response) {
+                    row.remove();
+                    $("#cart-total").text(response.total.toFixed(2));
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productdetail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href={% static 'gpt2.css' %}></link>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const basePrice = {{products.price}}; // Base price in ₹
+            const form = document.getElementById('weight-form');
+            const updatedPriceElement = document.getElementById('updated-price');
+        
+            form.addEventListener('change', function(event) {
+                const selectedWeight = event.target.value;
+                const multiplier = parseInt(selectedWeight) / 1000; // Calculate multiplier
+                const updatedPrice = basePrice * multiplier * 2; // Double the price
+                updatedPriceElement.textContent = `₹${updatedPrice.toFixed(2)}`;
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <a href="/cake/show_cart/"><button class="add-to"><i class="fa-solid fa-cart-shopping"></i>Cart</button></a>
+        <div class="product-container">
+            <div class="product-image">
+                <img src="{{products.image.url}}" alt="">
+            </div>
+            <div class="product-details">
+                <h1>Delicious {{products.name}}</h1>
+                <p class="product-description">
+                    {{products.description}}
+                </p>
+                {% comment %} <p class="product-price">₹{{products.price}}</p> {% endcomment %}
+                
+            </div>
+        </div>
+                {% if request.session%}
+                {% if item_already_in_cart %}
+                <br>
+                <a href="/cake/show_cart/"><button class="add-to-cart">Go to Cart</button></a>
+                <br>
+                <br>
+                {% else %}
+                <form action="/cake/add_to_cart/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="prod_id" value="{{products.id}}" id="prod_id">
+                    <h2 class="product-price" id="updated-price" name="updated-price">₹{{products.price}}.00</h2>
+                    <div class="kg">
+                        <h4 id="weight-form">Select kilogram of cake:-
+                            <label>
+                                <input type="radio" name="kgs" id="kgs" value="250" required> 250g</input>
+                            </label>
+                            <label>
+                                <input type="radio" name="kgs" id="kgs" value="500" checked> 500g</input>
+                            </label>
+                            <label>
+                                <input type="radio" name="kgs" id="kgs" value="1000"> 1kg</input>
+                            </label>
+                        </h4>
+                    </div>
+                    <h2>Customize Cake:-</h2>
+                    <div class="customization">
+                        
+                        <label for="shape-select">Select Cake Shape:-</label>
+                        {% for shapes in shapes %}
+                        <label>
+                            <input type="radio" name="item" id="item" value="{{shapes.name}}" required> {{shapes.name}}</input>
+                        </label>
+                        {% endfor %}
+                        <br>
+                        <br>
+                        <br>
+                        <label for="cream-select">Select Cake Cream:-</label>
+                        {% for flavors in flavors %}
+                        <label>
+                            <input type="radio" name="item1" id="item1" value="{{flavors.name}}" required> {{flavors.name}}</input>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <br>
+                    <br>
+                    <br>
+                </form>
+                {% endif %}
+                {% endif %}
+            
+        <h2>In the Box:-</h2>
+        <br>
+        <tr>
+        <td> <i class="fas fa-arrow-right"></i> Fire Stick</td>&nbsp;&nbsp;
+        <td> <i class="fas fa-arrow-right"></i> Candles</td>&nbsp;&nbsp;
+        <td> <i class="fas fa-arrow-right"></i> Knife</td>
+        </tr>
+        <br>
+        <br>
+        <h2>Facilities:-</h2>
+        <tr>
+            <br>
+            <td>Free Delivery.</td><br><br>
+            <td>Fast Delivery , Product Deliver Within 2 Hours.</td>
+        </tr>
+        <br>
+        <br>
+        <h2>Ingredients:-</h2>
+        <p id="paragraph">{{products.ingredients}}</p>
+        <script>
+            var paragraph = document.getElementById('paragraph');
+            var newText = paragraph.innerHTML.replace(/\./g, '.<br><br>');
+            paragraph.innerHTML = newText;
+        </script>
+</body>
+</html>
