@@ -1,0 +1,411 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'); */
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Urbanist',sans-serif;
+}
+:root{
+    --var-primary-color:#2888e8ff;
+
+}
+html{
+    font-size: 62.5%;
+}
+
+h1,h2,h3,h4{
+    font-family: 'lexend Deca',sans-serif;
+}
+
+h1{
+    font-size: 4.8rem;
+}
+
+h2{
+    font-size: 2.7rem;
+}
+
+p{
+    font-size: 1.5rem;
+    letter-spacing: 0.08rem;
+}
+
+button,input[type="submit"]{
+    border: .1rem solid #fff;
+    outline: none;
+    padding: .6rem 1.2rem;
+    font-size: 1.7rem;
+    text-transform: capitalize;
+    letter-spacing: 0.05rem;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*now my registration page styling*/
+.registration-header{
+    height: 100vh;
+    background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url("images/new.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container{
+    height: 10vh;
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo p{
+    font-size: 4.0rem;
+    font-weight: bold;
+    color:#e8e8e8ca;
+    text-decoration:solid;
+    font-family: comic sans MS;
+}
+
+ul{
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+li > a{
+    color:#e8e8e8;
+    text-decoration: none;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+li > a:hover{
+    color:rgba(214, 218, 106, 0.765);
+    /* text-decoration: underline; */
+}
+/*Frame ne up and down karva*/
+main{
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Frame size*/
+.registration , .login{
+    min-height: 45rem;
+    min-width: 52vw;
+    background-color: #ffffff;
+}
+
+.grid-two--column{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.form-text{
+    /* height:inherit; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("images/4.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    /* background-position: center; */
+    color: #fff;
+    padding: 3rem 2rem;
+}
+
+.form-text p{
+    width: 31ch;
+    text-align: center;
+    margin: 3rem 0 3rem 0;
+}
+
+.form-text button{
+    background-color: #fff;
+    color: #000;
+}
+
+.form-text button:hover{
+    background-color:transparent;
+    color: #fff;
+}
+/*registration image and login image*/
+.registration-form,.login-form{
+    /* width: 100%; */
+    min-height: 75vh;
+    background-color:#ededed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sub input{
+    width: 14.9rem;
+}
+
+.su input{
+    width: 8rem;
+}
+
+.registration-form h2{
+    padding-top: .2rem;
+    padding-bottom: .5rem;
+    color:rgba(0,0,0,0.9);
+}
+
+.login-form h2{
+    padding-bottom: 1.2rem;
+    color:rgba(0,0,0,0.9);
+}
+/* All input*/
+input{
+    width: 30rem;
+    margin: .6rem 0;
+    border: none;
+    font-size: 120%;
+    background-color: white;
+    padding: 1.2rem 1.3rem;
+    letter-spacing: 0.06rem;
+    border-style:ridge;
+    border-radius: .4rem .4rem .4rem .4rem;
+}
+
+.btn-group label{
+    font-size: 150%;
+    /* background-color: #000; */
+}
+
+input[type="submit"]{
+    margin-top: .5rem;
+    min-width: 9rem;
+    background-color: var(--var-primary-color);
+    color: #fff;
+}
+
+.login:not(.login-section--display){
+    display: none;
+}
+
+.login-section--display .login{
+    display: block;
+}
+
+.login-section--display .registration{
+    display: none;
+}
+
+.registration:not(.registration-section--display){
+    display: none;
+}
+
+.registration-section--display .registration{
+    display: block;
+}
+
+.registration-section--display .login{
+    display: none;
+}
+
+.login .form-text{
+    background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url("images/3.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.registration-form p{
+    padding-top: .6rem;
+    padding-bottom: .9rem;
+}
+
+.login-form p{
+    padding-top: .6rem;
+    padding-bottom: .9rem;
+}
+
+@media(max-width:1024px){
+    .container{
+        width: 100rem;
+        height: 10vh;
+        padding-top: 5vh;
+    }
+    main{
+        min-height: 90vh;
+    }
+    .registration , .login{
+        min-height: 30rem;
+        min-width: 40vw;
+        background-color: #ffffff;
+    }
+    .registration-form , .login-form{
+        min-height: 70vh;
+        min-width: 50vh;
+        padding: 1.5rem 1rem;
+
+    }
+    input{
+        margin: .5rem 0;
+        font-size: 110%;
+        padding: 1.1rem 1.2rem;
+        border-radius: .2rem .2rem .2rem .2rem;
+    }
+}
+
+@media (max-width:768px) {
+    .container{
+        top: 3%;
+        width: 75rem;
+        height: 10vh;
+    }
+    .logo p{
+        font-size: 3.1rem;
+        margin-left: 1rem;
+    }
+    main{
+        min-height: 87vh;
+    }
+    .registration-form , .login-form{
+        min-height: 65vh;
+        padding: 1.3rem .8rem;
+    }
+    .container a{
+        display: block;
+        font-size: 1.6rem;
+        margin: .4rem;
+    }
+}
+
+@media (max-width:600px){
+    html{
+        font-size: 50%;
+    }
+    .container{
+        top: 3%;
+        width: 75rem;
+        height: 10vh;
+    }
+    .logo p{
+        font-size: 3.1rem;
+        margin-left: 1rem;
+    }
+    main{
+        min-height: 87vh;
+    }
+    .registration-form , .login-form{
+        min-height: 65vh;
+        padding: 1.3rem .8rem;
+    }
+    .container a{
+        display: block;
+        font-size: 1.6rem;
+        margin: .4rem;
+    }
+}
+
+@media (max-width:425px){
+    html{
+        font-size: 75%;
+    }
+    body{
+        max-width: 425px;
+    }
+    .registration-header{
+        height:250vh;
+        /* width:140%; */
+        max-width: 425px;
+        background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url("images/1.1.jpeg");
+        /* background-repeat:repeat; */
+        background-size: cover;
+        background-position: center;
+    }
+    .grid-two--column{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .container{
+        /* top: 3%; */
+        width: 20rem;
+        height: 5vh;
+        flex-wrap: wrap;
+        margin: 0%;
+    }
+    .container a{
+       /* padding: 0.01rem; */
+       margin: 0.01rem;
+    }
+    .logo p{
+        font-size: 3.1rem;
+        /* margin-left: 1rem; */
+    }
+    main{
+        min-height: 235vh;
+        display: flex;
+    }
+    .form-text{
+        height:inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 10rem 3.5rem;
+    }
+    .registration-form , .login-form{
+        min-height: 93vh;
+        padding: 1.3rem .8rem;
+    }
+}
+
+@media (max-width:375px){
+    html{
+        font-size: 75%;
+    }
+    .registration-header{
+        height:250vh;
+        width:160%;
+        /* background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url("1.1.jpg"); */
+        /* background-repeat:repeat; */
+        /* background-size: cover;
+        background-position: center; */
+    }
+    .grid-two--column{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .container{
+        top: 3%;
+        width: 50rem;
+        height: 10vh;
+        flex-wrap: wrap;
+    }
+    .logo p{
+        font-size: 3.1rem;
+        margin-left: 1rem;
+    }
+    main{
+        min-height: 220vh;
+    }
+    .form-text{
+        /* height:inherit; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 12rem 6rem;
+    }
+    .registration-form , .login-form{
+        min-height: 93vh;
+        padding: 1.3rem .8rem;
+    }
+}
+
+@media(max-width:320px){
+    .container{
+        width: 40rem;
+    }
+}

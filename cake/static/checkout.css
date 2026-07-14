@@ -1,0 +1,45 @@
+body { font-family: Arial, sans-serif;
+    background-image : url(images/background.png);
+}
+
+button,input[type="submit"]{
+    border: .1rem solid #fff;
+    outline: none;
+    padding: .5rem 1rem;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    letter-spacing: 0.05rem;
+    background-color: rgb(65, 115, 253);
+    color: white;
+    cursor: pointer;
+}
+
+.registration-form{
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.registration-form h2{
+    margin-top: 5%;
+    padding-top: 2%;
+    text-align: center;
+    color:rgba(0,0,0,0.9);
+}
+
+input{
+    width: 25rem;
+    margin: .5rem 0;
+    border: none;
+    font-size: 93%;
+    background-color: #ededed;
+    padding: 1rem 1rem;
+    letter-spacing: 0.06rem;
+    border-style:ridge;
+    border-radius: .4rem .4rem .4rem .4rem;
+}
+
+.sub input{
+    width: 13.4rem;
+}

@@ -1,0 +1,181 @@
+/* ====== Cake 'N' Bake Product Detail Page (Gold Theme) ====== */
+
+/* General Layout */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff8f0; /* soft cream */
+    color: #3e2723; /* dark chocolate */
+    margin: 0;
+    padding: 0;
+}
+
+/* Cart Button (top-right) */
+.add-to {
+    background: linear-gradient(90deg, #b8860b, #d4af37); /* gold gradient */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.add-to:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #cdaa25, #ffd700);
+}
+
+/* Product Container */
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1100px;
+    background: white;
+    margin: 100px auto 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px 30px;
+}
+
+/* Product Image */
+.product-image {
+    flex: 1 1 40%;
+    text-align: center;
+    padding: 20px;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Product Details */
+.product-details {
+    flex: 1 1 50%;
+    padding: 20px;
+}
+
+.product-details h1 {
+    font-size: 2rem;
+    color: #4e342e;
+    margin-bottom: 15px;
+}
+
+.product-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #5d4037;
+    margin-bottom: 20px;
+}
+
+/* Price Display */
+.product-price {
+    color: #3e2723;
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 20px 0;
+}
+
+/* Customization Section */
+.kg, .customization {
+    background-color: #fbe9e7;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.kg h4, .customization label {
+    color: #3e2723;
+    font-weight: 600;
+}
+
+input[type="radio"] {
+    accent-color: #b8860b; /* gold accent */
+    margin-right: 6px;
+}
+
+/* Add to Cart Button (Gold Gradient) */
+.add-to-cart {
+    background: linear-gradient(90deg, #b8860b, #d4af37);
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.add-to-cart:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(90deg, #cdaa25, #ffd700);
+}
+
+/* Section Headings */
+h2 {
+    color: #4e342e;
+    margin-top: 30px;
+    position: relative;
+}
+
+h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #b8860b, #d4af37);
+    margin-top: 6px;
+    border-radius: 2px;
+}
+
+/* Ingredients & Details */
+#paragraph {
+    font-size: 1.1rem;
+    color: #5d4037;
+    margin-bottom: 40px;
+}
+
+/* Subtle Divider Lines */
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0c097;
+    margin: 25px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-details {
+        text-align: center;
+    }
+
+    .add-to {
+        position: relative;
+        top: 10px;
+        right: 10px;
+        margin-bottom: 15px;
+    }
+
+    .add-to-cart {
+        width: 100%;
+        margin-top: 15px;
+    }
+}

@@ -1,0 +1,15 @@
+.registration-header{
+    height: 100vh;
+    background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url("2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+h1{
+    color: white;
+    text-align: center;
+    padding-top: 10%;
+    font-size: 50px;
+    font-family: verdana;
+}
